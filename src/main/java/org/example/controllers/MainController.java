@@ -58,7 +58,8 @@ public class MainController {
         Room room = roomRepos.findById(id).orElseThrow();
 
         System.out.printf(String.valueOf(onOff));
-
+        System.out.println(room.getOnOff());
+        
         room.setName(name);
         room.setOnOff(onOff);
 

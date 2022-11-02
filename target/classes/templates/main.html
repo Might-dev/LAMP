@@ -9,7 +9,7 @@
 <form method="post">
     <input type="text" name="name" placeholder="NAME">
     <input type="text" name="country" placeholder="COUNTRY">
-    <input type="checkbox" name="onOff" id="onOff" >
+    <input type="checkbox" name="onOff"  >
     <button type="submit">ADD</button>
 </form>
 
@@ -23,6 +23,7 @@
         <td th:text="${room.getName}"></td>
         <td th:text="${room.getCountry}"></td>
         <td th:text="${room.getOnOff}"></td>
+        <td><input type="checkbox" name="onOff" th:value="${room.getOnOff}" th:checked="${room.getOnOff}"></td>
         <td> <a th:href="'/main/' + ${room.getId}">EDIT</a> </td>
     </tr>
 </table>
