@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Room</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div>ROOM</div>
+<div th:each="room : ${rooms}">
+    <form method="post">
+        <input type="text" name="name" th:value="${room.getName}">
+        <input type="checkbox" name="onOff" th:value="${room.getOnOff}">
+        <td th:text="${room.getOnOff}"></td>
+        <button type="submit">SAVE</button>
+    </form>
+</div>
+</body>
+</html>
