@@ -1,2 +1,2 @@
 # lamp
-LampGit
+lamp
