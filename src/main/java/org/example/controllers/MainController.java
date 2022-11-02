@@ -57,6 +57,7 @@ public class MainController {
                            @RequestParam(required = false) boolean onOff){
         Room room = roomRepos.findById(id).orElseThrow();
 
+        System.out.printf(String.valueOf(onOff));
 
         room.setName(name);
         room.setOnOff(onOff);
