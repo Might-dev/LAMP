@@ -54,15 +54,16 @@ public class MainController {
     @PostMapping("/main/{id}")
     public String editPost(@PathVariable(value = "id") Long id,
                            @RequestParam String name,
-                           @RequestParam(required = false) boolean onOff){
+                           @RequestParam(required = false) boolean onOff,
+                           Model model){
         Room room = roomRepos.findById(id).orElseThrow();
 
         System.out.printf(String.valueOf(onOff));
         System.out.println(room.getOnOff());
-        
+
         room.setName(name);
         room.setOnOff(onOff);
-
+        model.addAttribute("onnOff", onOff);
         roomRepos.save(room);
         return "redirect:/main";
     }

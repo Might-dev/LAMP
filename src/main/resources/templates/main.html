@@ -22,7 +22,7 @@
     <tr th:each="room : ${rooms}">
         <td th:text="${room.getName}"></td>
         <td th:text="${room.getCountry}"></td>
-        <td th:text="${room.getOnOff}"></td>
+<!--        <td th:text="${room.getOnOff}"></td>-->
         <td><input type="checkbox" name="onOff" th:value="${room.getOnOff}" th:checked="${room.getOnOff}"></td>
         <td> <a th:href="'/main/' + ${room.getId}">EDIT</a> </td>
     </tr>
