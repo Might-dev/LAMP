@@ -67,4 +67,13 @@ public class MainController {
         roomRepos.save(room);
         return "redirect:/main";
     }
+
+    @PostMapping("/main/{id}/delete")
+    public String delete(@PathVariable(value = "id") Long id,
+                         Model model){
+
+        Room room = roomRepos.findById(id).orElseThrow();
+        roomRepos.delete(room);
+        return "redirect:/main";
+    }
 }
