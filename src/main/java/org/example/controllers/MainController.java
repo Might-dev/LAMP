@@ -44,7 +44,6 @@ public class MainController {
     @GetMapping("/main/{id}")
     public String edit(@PathVariable(value = "id") Long id,
                        Model model){
-
         Optional<Room> optionalRoomId = roomRepos.findById(id);
         List<Room> roomList = new ArrayList<>();
         optionalRoomId.ifPresent(roomList :: add);
@@ -54,41 +53,35 @@ public class MainController {
 
     @PostMapping("/main/{id}")
     public String editPost(@PathVariable(value = "id") Long id,
-                           @RequestParam String name,
                            @RequestParam(required = false) boolean onOff,
                            Model model){
         Room room = roomRepos.findById(id).orElseThrow();
-
-        System.out.printf(String.valueOf(onOff));
-        System.out.println(room.getOnOff());
-
-        room.setName(name);
         room.setOnOff(onOff);
         model.addAttribute("onnOff", onOff);
         roomRepos.save(room);
-        return "redirect:/main";
+        model.addAttribute("rooms", room);
+        return "edit";
     }
 
     @PostMapping("/main/{id}/delete")
     public String delete(@PathVariable(value = "id") Long id,
                          Model model){
-
         Room room = roomRepos.findById(id).orElseThrow();
         roomRepos.delete(room);
         return "redirect:/main";
     }
 
-    @PostMapping("/filter")
-    public String filter(@RequestParam String name,
-                         Model model){
-
-        Iterable<Room> room;
-        if(name != null && !name.isEmpty()){
-            room = roomRepos.findByName(name);
-        }else {
-            room = roomRepos.findAll();
-        }
-        model.addAttribute("rooms", room);
-        return "main";
-    }
+//    @PostMapping("/find")
+//    public String filter(@RequestParam String name,
+//                         Model model){
+//
+//        Iterable<Room> room;
+//        if(name != null && !name.isEmpty()){
+//            room = roomRepos.findByName(name);
+//        }else {
+//            room = roomRepos.findAll();
+//        }
+//        model.addAttribute("rooms", room);
+//        return "main";
+//    }
 }

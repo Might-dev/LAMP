@@ -5,10 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<div>ROOM</div>
+<div><b>ROOM</b></div>
 <div th:each="room : ${rooms}">
     <form method="post">
-        <input type="text" name="name" th:value="${room.getName}">
+        <label th:text="'NAME' + ${room.getName}"></label>
         <input type="checkbox" name="onOff" th:checked="${room.getOnOff}">
         <button type="submit">SAVE</button>
     </form>
@@ -17,5 +17,6 @@
         <button type="submit">Delete</button>
     </form>
 </div>
+<a href="/main">Main page</a>
 </body>
 </html>
