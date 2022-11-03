@@ -9,11 +9,12 @@
 <div th:each="room : ${rooms}">
     <form method="post">
         <input type="text" name="name" th:value="${room.getName}">
-<!--        <input type="checkbox" name="onOff" th:value="${room.getOnOff}" th:checked="${room.getOnOff}">-->
         <input type="checkbox" name="onOff" th:checked="${room.getOnOff}">
-<!--        <td th:text="${room.getOnOff}"></td>-->
-
         <button type="submit">SAVE</button>
+    </form>
+
+    <form method="post" th:action="'/main/' + ${room.getId} + '/delete'">
+        <button type="submit">Delete</button>
     </form>
 </div>
 </body>

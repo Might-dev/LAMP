@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -75,5 +76,19 @@ public class MainController {
         Room room = roomRepos.findById(id).orElseThrow();
         roomRepos.delete(room);
         return "redirect:/main";
+    }
+
+    @PostMapping("/filter")
+    public String filter(@RequestParam String name,
+                         Model model){
+
+        Iterable<Room> room;
+        if(name != null && !name.isEmpty()){
+            room = roomRepos.findByName(name);
+        }else {
+            room = roomRepos.findAll();
+        }
+        model.addAttribute("rooms", room);
+        return "main";
     }
 }
