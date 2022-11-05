@@ -1,18 +1,14 @@
-package org.example.controllers;
+package org.example.controller;
 
 import org.example.domain.Room;
-import org.example.repos.RoomRepos;
+import org.example.repo.RoomRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 
@@ -42,7 +38,7 @@ public class MainController {
     }
 
     @GetMapping("/main/{id}")
-    public String edit(@PathVariable(value = "id") Long id,
+    public String getEdit(@PathVariable(value = "id") Long id,
                        Model model){
         Optional<Room> optionalRoomId = roomRepos.findById(id);
         List<Room> roomList = new ArrayList<>();
@@ -52,7 +48,7 @@ public class MainController {
     }
 
     @PostMapping("/main/{id}")
-    public String editPost(@PathVariable(value = "id") Long id,
+    public String editRoom(@PathVariable(value = "id") Long id,
                            @RequestParam(required = false) boolean onOff,
                            Model model){
         Room room = roomRepos.findById(id).orElseThrow();
@@ -63,25 +59,11 @@ public class MainController {
         return "edit";
     }
 
-    @PostMapping("/main/{id}/delete")
+    @DeleteMapping("/main/{id}")
     public String delete(@PathVariable(value = "id") Long id,
                          Model model){
         Room room = roomRepos.findById(id).orElseThrow();
         roomRepos.delete(room);
         return "redirect:/main";
     }
-
-//    @PostMapping("/find")
-//    public String filter(@RequestParam String name,
-//                         Model model){
-//
-//        Iterable<Room> room;
-//        if(name != null && !name.isEmpty()){
-//            room = roomRepos.findByName(name);
-//        }else {
-//            room = roomRepos.findAll();
-//        }
-//        model.addAttribute("rooms", room);
-//        return "main";
-//    }
 }
