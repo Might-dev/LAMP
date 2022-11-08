@@ -14,8 +14,12 @@ import java.util.Optional;
 
 @Controller
 public class MainController {
-    @Autowired
+
     private RoomRepos roomRepos;
+
+    public MainController(RoomRepos roomRepos) {
+        this.roomRepos = roomRepos;
+    }
 
     @GetMapping("/main")
     public String showRooms(Model model){

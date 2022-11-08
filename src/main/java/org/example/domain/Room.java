@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Room {
     @Id
@@ -19,10 +20,10 @@ public class Room {
     private String country;
     private boolean onOff;
 
+
     public Room(String name, String country, Boolean onOff) {
         this.name = name;
         this.country = country;
         this.onOff = onOff;
     }
-
 }

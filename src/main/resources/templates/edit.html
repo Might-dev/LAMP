@@ -8,8 +8,8 @@
 <div><b>ROOM</b></div>
 <div th:each="room : ${rooms}">
     <form method="post">
-        <label th:text="'NAME' + ${room.getName}"></label>
-        <input type="checkbox" name="onOff" th:checked="${room.getOnOff}">
+        <label th:text="'NAME  ' + ${room.getName}"></label>
+        <input type="checkbox" name="onOff" th:checked="${room.isOnOff}">
         <button type="submit">SAVE</button>
     </form>
 
