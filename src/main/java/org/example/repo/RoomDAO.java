@@ -61,7 +61,6 @@ public class RoomDAO implements RoomDAOInterface {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(query);
 
-
             preparedStatement.setString(1, room.getCountry());
             preparedStatement.setString(2, room.getName());
             preparedStatement.setBoolean(3, room.isOnOff());
@@ -74,9 +73,10 @@ public class RoomDAO implements RoomDAOInterface {
 
     @Override
     public void update(Long id, Room updatedRoom) {
+        String query = "UPDATE lampJDBC SET country=?, name=?, on_off=? WHERE id=?";
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("UPDATE lampJDBC SET country=?, name=?, on_off=? WHERE id=?");
+                    connection.prepareStatement(query);
 
             preparedStatement.setString(1, updatedRoom.getCountry());
             preparedStatement.setString(2, updatedRoom.getName());
@@ -96,16 +96,15 @@ public class RoomDAO implements RoomDAOInterface {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(query);
 
-            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.setLong(1, id);
 
             room = new Room();
-            if (resultSet.next()) {
+            resultSet.next();
 
-                room.setName(resultSet.getString("name"));
-                room.setCountry(resultSet.getString("country"));
-                room.setOnOff(resultSet.getBoolean("on_off"));
-            }
+            room.setName(resultSet.getString("name"));
+            room.setCountry(resultSet.getString("country"));
+            room.setOnOff(resultSet.getBoolean("on_off"));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

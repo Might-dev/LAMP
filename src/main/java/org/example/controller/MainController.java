@@ -107,7 +107,6 @@ public class MainController {
         return "edit";
     }
 
-
     @PostMapping("/main/{id}")
     public String editRoom(@PathVariable(value = "id") Long id,
                            @RequestParam(required = false) boolean onOff,
@@ -120,10 +119,9 @@ public class MainController {
         return "edit";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/main/{id}")
     public String update(@ModelAttribute("person") Room room,
-                         @PathVariable("id") int id) {
-
+                         @PathVariable("id") Long id) {
         roomDAO.update(id, room);
         return "redirect:/main";
     }
