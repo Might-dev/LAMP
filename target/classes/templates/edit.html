@@ -6,17 +6,42 @@
 </head>
 <body>
 <div><b>ROOM</b></div>
-<div th:each="room : ${rooms}">
-    <form method="post">
-        <label th:text="'NAME  ' + ${room.getName}"></label>
-        <input type="checkbox" name="onOff" th:checked="${room.isOnOff}">
+<!--<div th:each="room : ${rooms}"></div>-->
+
+    <form method="POST">
+        <label th:text="'NAME  ' + ${rooms.getName}"></label>
+
+        <input type="text" name="name">
+        <input type="checkbox" name="onOff" th:checked="${rooms.isOnOff}">
         <button type="submit">SAVE</button>
     </form>
 
-    <form method="post" th:action="'/main/' + ${room.getId} + '/delete'">
+
+
+<!--    <form th:method="DELETE" th:action="'/main/' + ${rooms.getId} + '/delete'">-->
+<!--        <button type="submit">Delete</button>-->
+<!--    </form> -->
+
+<form th:method="DELETE" th:action="@{/main/{id}(id=${rooms.getId()})}">
         <button type="submit">Delete</button>
     </form>
-</div>
+
+
+
+
+
+<!--<form method="post">-->
+<!--    <label th:text="'NAME  ' + ${room.getName}"></label>-->
+<!--    <input type="checkbox" name="onOff" th:checked="${room.isOnOff}">-->
+<!--    <button type="submit">SAVE</button>-->
+<!--</form>-->
+
+<!--<form method="post" th:action="'/main/' + ${room.getId} + '/delete'">-->
+<!--    <button type="submit">Delete</button>-->
+<!--</form>-->
+
+
+
 <a href="/main">Main page</a>
 </body>
 </html>

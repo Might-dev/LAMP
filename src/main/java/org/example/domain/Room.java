@@ -26,4 +26,5 @@ public class Room {
         this.country = country;
         this.onOff = onOff;
     }
+
 }
