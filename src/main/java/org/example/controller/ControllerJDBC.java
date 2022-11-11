@@ -49,7 +49,7 @@ public class ControllerJDBC {
         Room room = roomDAO.findById(id);
         room.setOnOff(onOff);
         model.addAttribute("onnOff", onOff);
-        roomDAO.save(room);
+        roomDAO.update(id, room);
         model.addAttribute("rooms", room);
         return "edit";
     }
@@ -61,7 +61,7 @@ public class ControllerJDBC {
         return "redirect:/main";
     }
 
-    @DeleteMapping("/main/{id}")
+    @PostMapping("/main/{id}/delete")
     public String delete(@PathVariable(value = "id") Long id,
                          Model model) {
         roomDAO.delete(id);

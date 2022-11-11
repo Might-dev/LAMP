@@ -13,7 +13,7 @@
     <button type="submit">SAVE</button>
 </form>
 
-<form th:method="DELETE" th:action="'/main/' + ${rooms.getId} + '/delete'">
+<form th:method="post" th:action="'/main/' + ${rooms.getId} + '/delete'">
     <button type="submit">Delete</button>
 </form>
 

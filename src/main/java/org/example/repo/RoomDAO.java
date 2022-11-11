@@ -41,7 +41,7 @@ public class RoomDAO implements RoomDAOInterface {
             while (resultSet.next()){
                 Room room = new Room();
 
-//                room.setId(resultSet.getLong("id"));
+                room.setId(resultSet.getLong("id"));
                 room.setCountry(resultSet.getString("country"));
                 room.setName(resultSet.getString("name"));
                 room.setOnOff(resultSet.getBoolean("on_off"));
@@ -81,6 +81,7 @@ public class RoomDAO implements RoomDAOInterface {
             preparedStatement.setString(1, updatedRoom.getCountry());
             preparedStatement.setString(2, updatedRoom.getName());
             preparedStatement.setBoolean(3, updatedRoom.isOnOff());
+            preparedStatement.setLong(4, id);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -96,12 +97,14 @@ public class RoomDAO implements RoomDAOInterface {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(query);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
             preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
 
             room = new Room();
             resultSet.next();
 
+            room.setId(resultSet.getLong("id"));
             room.setName(resultSet.getString("name"));
             room.setCountry(resultSet.getString("country"));
             room.setOnOff(resultSet.getBoolean("on_off"));
