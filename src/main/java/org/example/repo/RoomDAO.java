@@ -100,12 +100,11 @@ public class RoomDAO implements RoomDAOInterface {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             room = new Room();
-            if (resultSet.next()) {
+            resultSet.next();
 
-                room.setName(resultSet.getString("name"));
-                room.setCountry(resultSet.getString("country"));
-                room.setOnOff(resultSet.getBoolean("on_off"));
-            }
+            room.setName(resultSet.getString("name"));
+            room.setCountry(resultSet.getString("country"));
+            room.setOnOff(resultSet.getBoolean("on_off"));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
