@@ -120,13 +120,13 @@ public class MainController {
         return "edit";
     }
 
-//    @PatchMapping("/{id}")
-//    public String update(@ModelAttribute("person") Room room,
-//                         @PathVariable("id") int id) {
-//
-//        roomDAO.update(id, room);
-//        return "redirect:/main";
-//    }
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") Room room,
+                         @PathVariable("id") int id) {
+
+        roomDAO.update(id, room);
+        return "redirect:/main";
+    }
 
     @DeleteMapping("/main/{id}")
     public String delete(@PathVariable(value = "id") Long id,
