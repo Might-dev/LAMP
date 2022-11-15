@@ -40,7 +40,6 @@ public class RoomDAO implements RoomDAOInterface {
 
             while (resultSet.next()){
                 Room room = new Room();
-
                 room.setId(resultSet.getLong("id"));
                 room.setCountry(resultSet.getString("country"));
                 room.setName(resultSet.getString("name"));
@@ -72,15 +71,15 @@ public class RoomDAO implements RoomDAOInterface {
     }
 
     @Override
-    public void update(Long id, Room updatedRoom) {
+    public void update(Long id, Room room) {
         String query = "UPDATE lampJDBC SET country=?, name=?, on_off=? WHERE id=?";
         try {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(query);
 
-            preparedStatement.setString(1, updatedRoom.getCountry());
-            preparedStatement.setString(2, updatedRoom.getName());
-            preparedStatement.setBoolean(3, updatedRoom.isOnOff());
+            preparedStatement.setString(1, room.getCountry());
+            preparedStatement.setString(2, room.getName());
+            preparedStatement.setBoolean(3, room.isOnOff());
             preparedStatement.setLong(4, id);
 
             preparedStatement.executeUpdate();
@@ -99,8 +98,6 @@ public class RoomDAO implements RoomDAOInterface {
 
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-
-
             room = new Room();
             resultSet.next();
 
