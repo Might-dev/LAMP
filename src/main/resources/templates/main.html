@@ -3,29 +3,143 @@
 <head>
     <title>Main page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!-- Add these scripts in your HTML head section -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"], input[type="checkbox"] {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        $(document).ready(function() {
+            // Function to update the table
+            function updateTable() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/main/allRoomsJson', // Replace with your server endpoint
+                    dataType: 'json',
+                    success: function(response) {
+                        updateUI(response);
+                    },
+                    error: function(error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }
+
+            // Function to update the UI with the response
+            function updateUI(data) {
+                var tableBody = $('#roomTableBody');
+                tableBody.empty(); // Clear the existing table content
+
+                $.each(data, function(index, room) {
+                    var row = '<tr>' +
+                        '<td>' + room.name + '</td>' +
+                        '<td>' + room.country + '</td>' +
+                        '<td><input type="checkbox" name="onOff" value="' + room.onOff + '" ' + (room.onOff ? 'checked' : '') + ' disabled></td>' +
+                        '<td><a href="/main/' + room.id + '">EDIT</a></td>' +
+                        '</tr>';
+
+                    tableBody.append(row);
+                });
+            }
+
+            // Update the table every second
+            setInterval(function() {
+                updateTable();
+            }, 1000);
+        });
+
+        /*]]>*/
+    </script>
 </head>
 <body>
 
-<form method="post">
+<form method="post" action="/main">
     <input type="text" name="name" placeholder="NAME">
     <input type="text" name="country" placeholder="COUNTRY">
-    <input type="checkbox" name="onOff"  >
+    <input type="checkbox" name="onOff">
     <button type="submit">ADD</button>
 </form>
 <br><br>
 <div>LIST ROOM</div><br>
 <table>
+    <thead>
     <tr>
         <th>NAME</th>
         <th>COUNTRY</th>
     </tr>
+    </thead>
+    <tbody id="roomTableBody">
+    <!-- Table content will be dynamically updated by JavaScript -->
     <tr th:each="room : ${rooms}">
-        <!--        <td th:text="${room.getId}"></td>-->
         <td th:text="${room.getName}"></td>
         <td th:text="${room.getCountry}"></td>
         <td><input type="checkbox" name="onOff" th:value="${room.isOnOff}" th:checked="${room.isOnOff}" disabled></td>
-        <td> <a th:href="'/main/' + ${room.getId}">EDIT</a> </td>
+        <td><a th:href="'/main/' + ${room.getId}">EDIT</a></td>
     </tr>
+    </tbody>
 </table>
 </body>
 </html>
