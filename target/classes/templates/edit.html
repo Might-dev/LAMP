@@ -3,12 +3,75 @@
 <head>
     <title>Room</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        div {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            display: block;
+            color: #4caf50;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            color: #45a049;
+        }
+    </style>
+
 </head>
 <body>
 <div><b>ROOM</b></div>
 
 <form method="POST">
-    <label th:text="'NAME  ' + ${rooms.getName}"></label>
+    <label th:text="'NAME: ' + ${rooms.getName}"></label>
     <input type="checkbox" name="onOff" th:checked="${rooms.isOnOff}">
     <button type="submit">SAVE</button>
 </form>
